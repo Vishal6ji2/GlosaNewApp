@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.glosanewapp.viewmodel.LiveFeedsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/custom_live_imgtype"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_pedestrianicon"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/custom_live_tvmoving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_toStartOf="@id/custom_live_tv_latlng"
+            android:layout_toEndOf="@id/custom_live_imgtype"
+            android:fontFamily="@font/interbold"
+            android:text="A pedestrian is moving"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/custom_live_tv_streetname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/interregular"
+            android:textColor="#989797"
+            android:layout_below="@id/custom_live_tvmoving"
+            android:layout_alignStart="@id/custom_live_tvmoving" />
+
+        <TextView
+            android:id="@+id/custom_live_tv_latlng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="@dimen/_5sdp"
+            android:textColor="#565656"
+            android:textSize="@dimen/_10ssp"
+            app:drawableStartCompat="@drawable/ic_arrowmapicon"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/custom_live_tv_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_live_tv_latlng"
+            android:layout_alignStart="@id/custom_live_tv_latlng"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="@dimen/_5sdp"
+            android:textColor="#353535"
+            android:textSize="@dimen/_9ssp"
+            app:drawableStartCompat="@drawable/ic_metericon"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/custom_live_tv_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9ssp"
+            tools:ignore="HardcodedText"
+            android:layout_below="@id/custom_live_tv_speed"
+            android:layout_alignStart="@id/custom_live_tv_latlng"
+            android:textColor="#353535"
+            android:drawablePadding="@dimen/_5sdp"
+            app:drawableStartCompat="@drawable/ic_directiontoicon"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+</layout>

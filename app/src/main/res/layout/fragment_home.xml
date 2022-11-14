@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.glosanewapp.viewmodel.HomeFragmentViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.HomeFragment"
+        android:background="@drawable/map">
+
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/homefrag_mapview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_above="@id/homefrag_pubsublayout"/>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#1E000000"
+            app:navigationIcon="@drawable/backicon">
+
+            <TextView
+                android:id="@+id/homefrag_tv_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/intermedium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                tools:ignore="HardcodedText" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <LinearLayout
+            android:id="@+id/homefrag_pubsublayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/custom_topcorner"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_alignParentBottom="true">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                android:hint="Your Current Location"
+                app:hintTextColor="@color/black"
+                android:layout_margin="@dimen/_10sdp"
+                tools:ignore="HardcodedText"
+                android:padding="@dimen/_10sdp"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/gpsicon"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:textSize="@dimen/_12ssp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="none"
+                    app:textInputLayoutFocusedRectEnabled="false"
+                    android:background="@android:color/transparent"
+                    android:text="3229 williams Mine Road, Rochele Park, New jersey, 07982, US"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:id="@+id/homefrag_publishlayout"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:src="@drawable/publishicon"
+                            tools:ignore="ContentDescription"
+                            android:padding="@dimen/_10sdp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Publish"
+                            android:textSize="@dimen/_16ssp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            tools:ignore="HardcodedText"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:id="@+id/homefrag_subscribelayout"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:src="@drawable/subscribeicon"
+                            tools:ignore="ContentDescription"
+                            android:padding="@dimen/_10sdp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Subscribe"
+                            android:textSize="@dimen/_16ssp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            tools:ignore="HardcodedText"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

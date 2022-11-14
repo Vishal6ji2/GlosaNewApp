@@ -1,0 +1,120 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.sonarqube'
+    id 'com.dicedmelon.gradle.jacoco-android'
+    id 'kotlin-kapt'
+}
+
+android {
+
+    compileSdkVersion 32
+
+
+    dataBinding {
+        enabled = true
+    }
+
+
+    defaultConfig {
+        applicationId "com.example.glosanewapp"
+        minSdk 21
+        targetSdkVersion 32
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+
+}
+
+sonarqube {
+    sonarqube {
+        properties {
+            property "sonar.projectName", "SonarQubeSample"
+            property "sonar.projectKey", "SonarQubeSample"
+            property "sonar.host.url", "http://localhost:9000"
+            property "sonar.projectVersion", "1.0"
+            property "sonar.language", "java"
+            property "sonar.sources", "src/main/"
+        }
+    }
+
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    //AndroidX AppCompat
+    implementation "androidx.appcompat:appcompat:1.5.1"
+
+    //Material version
+    implementation "com.google.android.material:material:1.6.0"
+
+    //ContraintLayout version
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+
+    //Navigation Components
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
+
+    //DataBinding Library
+    annotationProcessor "androidx.databinding:databinding-compiler:$databinding_version"
+
+    //map play services library
+    implementation "com.google.android.gms:play-services-maps:$map_services_version"
+    implementation "com.google.android.libraries.places:places:$place_api_version"
+
+    // ssp & ssp library
+    implementation "com.intuit.ssp:ssp-android:$sdp_ssp_version"
+    implementation "com.intuit.sdp:sdp-android:$sdp_ssp_version"
+
+    //Lifecycle library
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //Viewmodel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$squareup_retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$squareup_retrofit2_version"
+    implementation "com.squareup.okhttp3:okhttp:$squareup_okhttp3_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$squareup_okhttp3_version"
+
+    //Speedometer
+    implementation "com.cardiomood.android:android-widgets:$speedometer_version"
+
+//    Testing
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$android_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+
+    implementation project(':serviceLibrary')
+
+    implementation files('lib/asn1rt.jar')
+    implementation files('lib/osstoed.jar')
+
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.protobuf:protobuf-java:3.20.0-rc-1'
+
+}

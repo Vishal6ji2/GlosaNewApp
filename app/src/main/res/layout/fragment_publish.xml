@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.glosanewapp.viewmodel.PublishFragmentViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.pubFragment">
+
+        <ImageView
+            android:id="@+id/pubfrag_mapimg"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/backmapimg"
+            android:scaleType="fitXY"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/pubfrag_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#1E000000"
+            app:navigationIcon="@drawable/backicon">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/intermedium"
+                android:text="Publish"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                tools:ignore="HardcodedText" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pubfrag_recyclerview"
+         android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pubfrag_toolbar"
+            android:layout_marginTop="@dimen/_5sdp"
+            tools:itemCount="1"
+            tools:listitem="@layout/custom_mode_layout" />
+
+
+        <LinearLayout
+            android:id="@+id/pubfrag_modelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignBottom="@id/pubfrag_mapimg"
+                android:layout_marginStart="@dimen/_50sdp"
+                android:layout_marginEnd="@dimen/_50sdp"
+                android:background="@drawable/custom_topcornerlayout">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Selected Mode"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/pubfrag_tv_selectedmode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pedestrian"
+                    tools:ignore="HardcodedText"
+                    android:gravity="center"
+                    android:textSize="@dimen/_15ssp"
+                    android:padding="@dimen/_3sdp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/pubfrag_modelayout"
+            android:background="@drawable/custom_topcornerlayout"
+            android:orientation="vertical"
+            android:elevation="@dimen/_3sdp"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3229, Williams Mine Road, Rochie Park, New Jersey, 07003, United States"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/_10sdp"
+                tools:ignore="HardcodedText"
+                android:fontFamily="@font/interlight"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/locationicon" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/pubfrag_sw_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do you want to share your current/last location with others?"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/_10sdp"
+                app:thumbTint="@color/white"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/interlight"
+                android:includeFontPadding="false"
+                app:showText="true"
+                android:drawableStart="@drawable/questionicon"
+                tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/pubfrag_sw_broadcast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do you want to Broadcast alerts on your phone?"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:textStyle="bold"
+                android:enabled="false"
+                app:thumbTint="@color/white"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:drawableStart="@drawable/questionicon"
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/interlight"
+                app:trackTint="@color/black"
+                app:showText="true"
+                android:drawablePadding="@dimen/_10sdp"
+                tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

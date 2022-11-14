@@ -1,0 +1,47 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:1:1-15:12
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:1:1-15:12
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:1:1-15:12
+	package
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:1:11-53
+		INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+		INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:2:5-63
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:4:5-79
+	android:name
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:4:22-76
+uses-permission#android.permission.INTERNET
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:5:22-64
+uses-permission#android.permission.SCHEDULE_EXACT_ALARM
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:6:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:7:22-65
+application
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:9:5-13:19
+service#info.mqtt.android.service.MqttService
+ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:11:9-73
+	android:name
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:11:18-70
+uses-sdk
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+		INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+		ADDED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+		INJECTED from /home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml

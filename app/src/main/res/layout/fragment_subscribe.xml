@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.glosanewapp.viewmodel.SubscriptionFragmentViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.SubscribeFragment">
+
+        <LinearLayout
+            android:id="@+id/subfrag_signalspeedlayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_220sdp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="#2FDCD6D6">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center|start"
+                android:layout_gravity="center">
+
+                <com.cardiomood.android.controls.gauge.SpeedometerGauge
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_width="wrap_content"
+                    android:padding="8dp"
+                        android:id="@+id/speedometer" />
+
+                <TextView
+                    android:id="@+id/speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 mph"
+                    android:textSize="@dimen/_23ssp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/interregular"
+                    android:gravity="center"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/speedlimit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Speed Limit : 30mph"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="@dimen/_9ssp"
+                    android:fontFamily="@font/interbold"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/subfrag_signalimg"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:scaleY="1.2"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_unionsignalicon"
+                    tools:ignore="ContentDescription"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/subfrag_redsignalimg"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/redsignalicon"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/subfrag_yellowsignalimg"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/yellowsignalicon"
+                    tools:ignore="ContentDescription"
+                    android:layout_toEndOf="@id/subfrag_redsignalimg"/>
+
+                <ImageView
+                    android:id="@+id/subfrag_greensignalimg"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/greensignalicon"
+                    tools:ignore="ContentDescription"
+                    android:layout_toEndOf="@id/subfrag_yellowsignalimg"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/subfrag_signalimg"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:text="Ready"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:padding="@dimen/_5sdp"
+            android:background="#1E000000">
+
+            <ImageView
+                android:id="@+id/subfrag_dirimg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_directionicon"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_toStartOf="@id/subfrag_tv_distance"
+                android:layout_toEndOf="@id/subfrag_dirimg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/interbold"
+                    android:text="Next"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/_9ssp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/signal_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/interbold"
+                    android:maxLines="2"
+                    android:text=" WestSide Highway 12th Ave"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/subfrag_tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/interbold"
+                android:text="0.3 miles"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/milesicon"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/subfrag_signalspeedlayout">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/subfrag_tv_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/interbold"
+                    android:padding="@dimen/_3sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/subfrag_tvvehicle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/subfrag_tv_id"
+                    android:fontFamily="@font/interregular"
+                    android:gravity="center"
+                    android:textColor="#A3A3A3"
+                    android:text="Vehicle Mode- "
+                    android:textSize="@dimen/_12ssp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="General"
+                    android:layout_below="@id/subfrag_tv_id"
+                    tools:ignore="HardcodedText"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/interbold"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_toEndOf="@id/subfrag_tvvehicle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/interbold"
+                    android:text="@{viewmodel.cityName}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/locationicon"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="#51777575"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Live Feeds"
+                android:padding="@dimen/_5sdp"
+                android:fontFamily="@font/interbold"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="#838383"
+                android:layout_marginStart="@dimen/_10sdp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="#51777575"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/subfrag_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/custom_live_layout"
+                tools:itemCount="3"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
