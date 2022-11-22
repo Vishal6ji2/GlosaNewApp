@@ -29,11 +29,17 @@ class LoginActivityViewModel : ViewModel() {
         return registerIdData
     }
 
-    fun isValid(): Boolean {
-        if (userName?.equals("user3") == true && password?.equals("dfFg7sEX52BQ") == true && registrationUrl?.equals("http://reg.vzmode-br.dltdemo.io:80/") == true && mqttUrl?.equals("tcp://mqtt.vzmode-br.dltdemo.io:1883") == true) {
-            return true
+    fun isValid(): String {
+        if (userName?.equals("user3") == false) {
+            return "Invalid User"
+        } else if (password?.equals("dfFg7sEX52BQ") == false) {
+            return "Invalid Password"
+        } else if (registrationUrl?.equals("http://reg.vzmode-br.dltdemo.io:80/") == false) {
+            return "Invalid Registration Url"
+        } else if (mqttUrl?.equals("tcp://mqtt.vzmode-br.dltdemo.io:1883") == false) {
+            return "Invalid Mqtt Url"
         }
-        return false
+        return "Login Successfully"
     }
 
 }

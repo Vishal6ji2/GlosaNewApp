@@ -317,9 +317,15 @@ class MqttService : Service(), MqttTraceHandler {
      * @param activityToken     arbitrary identifier to be passed back to the Activity
      */
     fun disconnect(clientHandle: String, invocationContext: String?, activityToken: String?) {
-        val client = getConnection(clientHandle)
-        client.disconnect(invocationContext, activityToken)
-        connections.remove(clientHandle)
+        try {
+            val client = getConnection(clientHandle)
+            client.disconnect(invocationContext, activityToken)
+            connections.remove(clientHandle)
+        }
+        catch (ex:Exception){
+            ex.printStackTrace()
+        }
+
 
 
         // the activity has finished using us, so we can stop the service

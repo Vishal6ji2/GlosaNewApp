@@ -11,7 +11,7 @@ import com.example.glosanewapp.databinding.ActivityLoginBinding
 import com.example.glosanewapp.network.model.MqttUtils
 
 import com.example.glosanewapp.viewmodel.LoginActivityViewModel
-import com.example.latlngapp.network.UserSession
+import com.example.glosanewapp.network.UserSession
 import info.mqtt.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
@@ -54,28 +54,24 @@ class LoginActivity : AppCompatActivity() {
     private fun initViews() {
 
         binding.loginBtnConnect.setOnClickListener {
-            if (viewModel.isValid()) {
+            val msg = viewModel.isValid()
+            if (msg == "Login Successfully") {
                 callApi()
             }else{
-                Toast.makeText(this,"something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun callApi() {
         viewModel.getRegister()?.observe(this) {
-            Toast.makeText(this, it.iD.toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, it.iD.toString(), Toast.LENGTH_SHORT).show()
 
 
             /*myMqttClient.connectMQTT(this,it.iD.toString(),
                 viewModel.mqttUrl.toString(), viewModel.userName.toString(), viewModel.password.toString()
             )*/
             connectMQTT(it.iD.toString())
-
-//            viewModel
-            //Update the View
-            //disable your progress
-            // binding.txtView.setText(msg)
 
         }
     }

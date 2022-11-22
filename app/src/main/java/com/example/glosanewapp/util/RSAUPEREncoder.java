@@ -11,6 +11,9 @@ import j2735.dsrc.MessageFrame;
 import j2735.dsrc.MsgCount;
 import j2735.dsrc.RoadSideAlert;
 import j2735.dsrc.Speed;
+import j2735.dsrc.TransmissionAndSpeed;
+import j2735.dsrc.TransmissionState;
+import j2735.dsrc.Velocity;
 import j2735.itis.ITIScodes;
 
 import com.oss.asn1.Coder;
@@ -94,6 +97,7 @@ public class RSAUPEREncoder {
         positionVector._long=longitude;
         positionVector.lat=latitude;
         positionVector.heading=heading;
+        positionVector.speed= new TransmissionAndSpeed(new TransmissionState(1),new Velocity(speed.intValue()));
         samplevalue_RSA_431_UPER_value.setPosition(positionVector);
         samplevalue_RSA_431_UPER_value.setFurtherInfoID(null);
         samplevalue_RSA_431_UPER_value.setRegional(null);

@@ -4,6 +4,12 @@ plugins {
     id 'org.sonarqube'
     id 'com.dicedmelon.gradle.jacoco-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+
+    // Add the Crashlytics Gradle plugin
+    id 'com.google.firebase.crashlytics'
+
+
 }
 
 android {
@@ -114,7 +120,17 @@ dependencies {
     implementation files('lib/asn1rt.jar')
     implementation files('lib/osstoed.jar')
 
-    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.protobuf:protobuf-java:3.20.0-rc-1'
+
+    //implementation 'androidx.activity:activity-compose:1.6.1'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+
+    // Add the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 
 import j2735.dsrc.*
@@ -11,25 +12,35 @@ import com.example.glosanewapp.listeners.SubscriptionDataListener
 import com.example.glosanewapp.ui.fragments.SubscribeFragment
 import com.example.glosanewapp.util.*
 import com.example.glosanewapp.util.protobuf.RoutedMsgOuterClass
-import com.example.latlngapp.network.UserSession
+import com.example.glosanewapp.network.UserSession
+import com.example.glosanewapp.util.JERDecoderUtils.PSMResponse
+import com.google.gson.Gson
 import com.google.protobuf.Timestamp
 import info.mqtt.android.service.MqttAndroidClient
 import info.mqtt.android.service.QoS
 import org.eclipse.paho.client.mqttv3.*
 import java.io.ByteArrayInputStream
 
-class UserSubscriptionAndDataProvider constructor(context: Context) {
+class UserSubscriptionAndDataProvider constructor(context: Context,val fragment: Fragment) {
     private lateinit var mContext: Context
     private lateinit var mClient: MqttAndroidClient
     private lateinit var mListener: SubscriptionDataListener
     private var livedata: MutableLiveData<PersonalSafetyMessage> = MutableLiveData()
+    private var livedataeva: MutableLiveData<EmergencyVehicleAlert> = MutableLiveData()
     lateinit var  userSession: UserSession
-
+    val gson= Gson()
     fun getlivedata(): MutableLiveData<PersonalSafetyMessage> {
 
         return livedata
 
     }
+
+    fun getlivedataeva(): MutableLiveData<EmergencyVehicleAlert> {
+
+        return livedataeva
+
+    }
+
 
     fun publishBSMMessage(
         latitude: Latitude,
@@ -75,7 +86,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
         }
         Log.d(TAG, "mqtt BSM published called")
         Log.d(TAG, "pub_topic-> $PUB_TOPIC")
-        Toast.makeText(mContext, "BSM data published.", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(mContext, "BSM data published.", Toast.LENGTH_SHORT).show()
     }
 
     init {
@@ -91,14 +102,12 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
         private val VERSION_MQTT_SERVER_URL = "tcp://mqtt.vzmode-br.dltdemo.io:1883"
         private const val USER_NAME = "user3"
         private const val PASSWORD = "dfFg7sEX52BQ"
-        private const val SUB_TOPIC = "REGIONAL/DYN/4/#"
-        //private const val SUB_TOPIC = "REGIONAL/DYN/4/#"            //Regional topic to get all kind of data
-        //private const val SUB_TOPIC = "VZCV2X/3/IN/+/+/+/+/+/#"     //IN Topic for getting direct data
+        private const val SUB_TOPIC = "REGIONAL/DYN/4/+/+/+/+/+/+/+/+/+/+/VZ/+/#"
+ //       private const val SUB_TOPIC = "REGIONAL/DYN/4/#"            //Regional topic to get all kind of data
+//       private const val SUB_TOPIC = "VZCV2X/3/IN/+/+/VZ/+/+/#"     //IN Topic for getting direct data
         private const val PUB_TOPIC = "VZCV2X/3/IN/SW/NA/VZ"
         private const val QOS = 1
     }
-
-
 
 
     fun connectClient(listener: SubscriptionDataListener) {
@@ -179,36 +188,36 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                             "EMULATOR"
                         )
                     ) {
-                        onMessageArrived_routedMessagePSM(topic, message)
+                        onMessageArrivedroutedMessagePSM(topic, message)
 
 
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && topic.contains("EVA") && !topic.contains(
                             "EMULATOR"
                         )
                     ) {
-                        onMessageArrived_routedMessageEVA(topic, message)
+                        onMessageArrivedroutedMessageEVA(topic, message)
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && topic.contains("RSA") && !topic.contains(
                             "EMULATOR"
                         )
                     ) {
-                         onMessageArrived_routedMessageRSA(topic, message)
+                         onMessageArrivedroutedMessageRSA(topic, message)
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && topic.contains("SPAT") && !topic.contains(
                             "EMULATOR"
                         )
                     ) {
-                        onMessageArrived_routedMessageSPAT(topic, message)
+                        onMessageArrivedroutedMessageSPAT(topic, message)
                     }
                     else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && topic.contains("BSM") && !topic.contains(
                             "EMULATOR"
                         )
                     ) {
-                        onMessageArrived_routedMessageBSM(topic, message)
+                        onMessageArrivedroutedMessageBSM(topic, message)
                     }
                     else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && topic.contains("MAP") && !topic.contains(
                             "EMULATOR"
                         )
                     ) {
-                        onMessageArrived_routedMessageMAP(topic, message)
+                        onMessageArrivedroutedMessageMAP(topic, message)
                     }
                 } catch (e: Exception) {
 //                    Utils.printErrorLog(TAG, "messageArrived Exception::: ${e.message}")
@@ -227,12 +236,12 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
 
     }
 
-    private fun onMessageArrived_routedMessageMAP(topic: String, message: MqttMessage) {
+    private fun onMessageArrivedroutedMessageMAP(topic: String, message: MqttMessage) {
 
 
         if (topic.contains("UPER/MAP")) {
-            val outboundMsg: RoutedMsgOuterClass.RoutedMsg =
-                RoutedMsgOuterClass.RoutedMsg.parseFrom(message.payload)
+            val outboundMsg: RoutedMsgOuterClass.OutboundMsg =
+                RoutedMsgOuterClass.OutboundMsg.parseFrom(message.payload)
             val mapDecoder = MapDataUPERDecoder()
             println("Message Topic REGIONAL: Decoding...EVA $topic")
             val map = mapDecoder.decodeMap(
@@ -241,9 +250,9 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                 )
             )
 
-           // (mContext as MainScreenActivity).calculatediff( map.intersections.elements.get(0).refPoint.lat.intValue(),   map.intersections.elements.get(0).refPoint._long.intValue())
+            (fragment as SubscribeFragment).calculatediff( map.intersections.elements.get(0).refPoint.lat.intValue(),   map.intersections.elements.get(0).refPoint._long.intValue())
             // map.intersections.elements.get(0).refPoint.lat.intValue()
-            // Log.d(TAG, "onMessageArrived_routedMessageEVA: "+eva.timeStamp)
+            // Log.d(TAG, "onMessageArrivedroutedMessageEVA: "+eva.timeStamp)
             // (mContext as MainScreenActivity).playsound()
             //livedata.postValue(psm)
         }
@@ -251,7 +260,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
 
     }
 
-    private fun onMessageArrived_routedMessageBSM(topic: String, message: MqttMessage) {
+    private fun onMessageArrivedroutedMessageBSM(topic: String, message: MqttMessage) {
         try {
 
             if (topic.contains("UPER/BSM")) {
@@ -259,12 +268,13 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                     RoutedMsgOuterClass.OutboundMsg.parseFrom(message.payload)
                 val psmDecoder = BSMUPERDecoder()
                 println("Message Topic REGIONAL: Decoding...EVA $topic")
-                val rsa = psmDecoder.decodeBSM(
+                val bsm = psmDecoder.decodeBSM(
                     ByteArrayInputStream(
                         outboundMsg.getMsgBytes().toByteArray()
                     )
                 )
-                // Log.d(TAG, "onMessageArrived_routedMessageEVA: "+eva.timeStamp)
+                //livedatabsm.postValue(bsm)
+                // Log.d(TAG, "onMessageArrivedroutedMessageEVA: "+eva.timeStamp)
 
                // (mContext as MainScreenActivity).playsound()
                 //livedata.postValue(psm)
@@ -279,7 +289,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                         outboundMsg.getMsgBytes().toByteArray()
                     )
                 )*/
-                // Log.d(TAG, "onMessageArrived_routedMessageEVA: "+eva.timeStamp)
+                // Log.d(TAG, "onMessageArrivedroutedMessageEVA: "+eva.timeStamp)
 
                // (mContext as MainScreenActivity).playsound()
                 //livedata.postValue(psm)
@@ -290,7 +300,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
         }
     }
 
-    private fun onMessageArrived_routedMessageRSA(topic: String, message: MqttMessage) {
+    private fun onMessageArrivedroutedMessageRSA(topic: String, message: MqttMessage) {
         try {
 
             if (topic.contains("UPER/RSA")) {
@@ -303,9 +313,9 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                         outboundMsg.getMsgBytes().toByteArray()
                     )
                 )
-                // Log.d(TAG, "onMessageArrived_routedMessageEVA: "+eva.timeStamp)
+                // Log.d(TAG, "onMessageArrivedroutedMessageEVA: "+eva.timeStamp)
 
-                (mContext as SubscribeFragment).playsound()
+                (fragment as SubscribeFragment).playsound()
                 //livedata.postValue(psm)
             }
             else if (topic.contains("JER/RSA")) {
@@ -318,7 +328,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                         outboundMsg.getMsgBytes().toByteArray()
                     )
                 )
-                // Log.d(TAG, "onMessageArrived_routedMessageEVA: "+eva.timeStamp)
+                // Log.d(TAG, "onMessageArrivedroutedMessageEVA: "+eva.timeStamp)
 
                 (mContext as SubscribeFragment).playsound()*/
                 //livedata.postValue(psm)
@@ -330,7 +340,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
     }
 
 
-    private fun onMessageArrived_routedMessageEVA(topic: String, message: MqttMessage) {
+    private fun onMessageArrivedroutedMessageEVA(topic: String, message: MqttMessage) {
         try {
             if (topic.contains("UPER/EVA")) {
                 val outboundMsg: RoutedMsgOuterClass.OutboundMsg =
@@ -342,10 +352,10 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                         outboundMsg.getMsgBytes().toByteArray()
                     )
                 )
-                Log.d(TAG, "onMessageArrived_routedMessageEVA: " + eva.timeStamp)
+                Log.d(TAG, "onMessageArrivedroutedMessageEVA: " + eva.timeStamp)
 
                // (mContext as MainScreenActivity).playsound()
-                //livedata.postValue(psm)
+                livedataeva.postValue(eva)
             }
               else if (topic.contains("JER/EVA")) {
                 /*  val outboundMsg: RoutedMsgOuterClass.OutboundMsg =
@@ -357,7 +367,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                           outboundMsg.getMsgBytes().toByteArray()
                       )
                   )*/
-                  //Log.d(TAG, "onMessageArrived_routedMessageEVA: " + eva.timeStamp)
+                  //Log.d(TAG, "onMessageArrivedroutedMessageEVA: " + eva.timeStamp)
 
                   //( mContext as MainScreenActivity).playsound()
                   //livedata.postValue(psm)
@@ -369,7 +379,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
     }
 
 
-    private fun onMessageArrived_routedMessagePSM(topic: String, message: MqttMessage) {
+    private fun onMessageArrivedroutedMessagePSM(topic: String, message: MqttMessage) {
         try {
             if (topic.contains("UPER/PSM")) {
                 val outboundMsg: RoutedMsgOuterClass.OutboundMsg =
@@ -392,7 +402,13 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                     ByteArrayInputStream(
                         outboundMsg.getMsgBytes().toByteArray()
                     )
-                )
+                )*/
+              /*  val json = message.payload.decodeToString().substring(message.payload.decodeToString().indexOf("\"")-1,message.payload.decodeToString().lastIndexOf("}")+1).trim()
+
+                val psmresponse = gson.fromJson(json, PSMResponse::class.java)
+                val psm =psmresponse.messageFrame.value.personalSafetyMessage
+
+                Log.d(TAG, "onMessageArrived_routedMessagePSM: ${gson.toJson(psm).toString()}")
                 livedata.postValue(psm)*/
             }
         } catch (e: java.lang.Exception) {
@@ -401,11 +417,11 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
         }
     }
 
-    private fun onMessageArrived_routedMessageSPAT(topic: String, message: MqttMessage) {
+    private fun onMessageArrivedroutedMessageSPAT(topic: String, message: MqttMessage) {
         try {
             if (topic.contains("UPER/SPAT")) {
-                val outboundMsg: RoutedMsgOuterClass.RoutedMsg =
-                    RoutedMsgOuterClass.RoutedMsg.parseFrom(message.payload)
+                val outboundMsg: RoutedMsgOuterClass.OutboundMsg =
+                    RoutedMsgOuterClass.OutboundMsg.parseFrom(message.payload)
                 println("encoded spat" + message)
                 val spatDecoder = SPATUPERDecoder()
                 println("Message Topic REGIONAL: Decoding...SPAT $topic")
@@ -414,7 +430,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
                         outboundMsg.getMsgBytes().toByteArray()
                     )
                 )
-                //processdata(spat)
+                processdata(spat)
 
                 //livedata.postValue(psm)
             }
@@ -438,14 +454,13 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
         }
     }
 
-/*
 
     private fun processdata(spat: SPAT) {
 
-//                Log.d(TAG, "onMessageArrived_routedMessageSPAT: ${spat.timeStamp}")
+//                Log.d(TAG, "onMessageArrivedroutedMessageSPAT: ${spat.timeStamp}")
         Log.d(
             TAG,
-            "onMessageArrived_routedMessageSPAT: " + spat.intersections.elements.get(0).name
+            "onMessageArrivedroutedMessageSPAT: " + spat.intersections.elements.get(0).name
         )
         for (item in spat.intersections.elements.get(0).states.elements) {
 
@@ -453,18 +468,18 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
 
                 for (item2 in item.state_time_speed.elements) {
                     if (item2.getEventState() == MovementPhaseState.stop_Then_Proceed || item2.getEventState() == MovementPhaseState.stop_And_Remain) {
-                        (mContext as MainScreenActivity).updatelight(
+                        (fragment as SubscribeFragment).updatelight(
                             true,
                             spat.intersections.elements.get(0).name.stringValue()
                         )
-                        (mContext as MainScreenActivity).savetime(false,item2.timing.minEndTime,item2.timing.nextTime,item2.speeds.elements[0].speed)
+                        (fragment as SubscribeFragment).savetime(false,item2.timing.minEndTime,item2.timing.nextTime,item2.speeds.elements[0].speed)
                         break
                     } else if (item2.getEventState() == MovementPhaseState.pre_Movement || item2.getEventState() == MovementPhaseState.permissive_Movement_Allowed || item2.getEventState() == MovementPhaseState.protected_Movement_Allowed) {
-                        (mContext as MainScreenActivity).updatelight(
+                        (fragment as SubscribeFragment).updatelight(
                             false,
                             spat.intersections.elements.get(0).name.stringValue()
                         )
-                        (mContext as MainScreenActivity).savetime(true,item2.timing.minEndTime,item2.timing.nextTime,item2.speeds.elements[0].speed)
+                        (fragment as SubscribeFragment).savetime(true,item2.timing.minEndTime,item2.timing.nextTime,item2.speeds.elements[0].speed)
                         break
                     }
                 }
@@ -473,48 +488,7 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
         }
     }
 
-*/
 
-
-    /*  @RequiresApi(api = Build.VERSION_CODES.O)
-      private fun onMessageArrived_routedMessageRSA(topic: String, message: MqttMessage) {
-          Log.d(TAG, "onMessageArrived_routedMessageRSA:topic::" + topic)
-
-          if (!topic.contains("EMULATOR")) {
-              Log.d(TAG, "NON_EMULATOR_MESSAGE")
-          }
-
-          try {
-
-
-              if (topic.contains("UPER/RSA")) {
-                  val outboundMsg = RoutedMsgOuterClass.OutboundMsg.parseFrom(message.payload)
-                  val date = Instant
-                      .ofEpochSecond(outboundMsg.time.seconds, outboundMsg.time.nanos.toLong())
-                      .atZone(ZoneId.of("Asia/Kolkata") *//*ZoneId.systemDefault()*//*)
-                    .toLocalDateTime()
-                val convertedDate =
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(date)
-
-                val rsaDecoder = RSADecoder()
-                val rsa =
-                    rsaDecoder.decodeRSA(ByteArrayInputStream(outboundMsg.msgBytes.toByteArray()))
-                if (rsa != null) {
-                    Log.d(
-                        TAG,
-                        "rsa.typeEvent.intValue()::" + rsa.typeEvent.intValue()
-                    )
-                    if (rsa.typeEvent.intValue() == 9729)
-                        mListener.notifyDataReceived(true, convertedDate)
-                    else
-                        mListener.notifyDataReceived(false, convertedDate)
-                }
-            }
-        }
-        catch (ex:Exception){
-            Log.d("####error", "onMessageArrived_routedMessageRSA: ${ex.localizedMessage}")
-        }
-    }*/
 
 
     /*private fun getRegisteredClientID(): Int {
@@ -536,12 +510,12 @@ class UserSubscriptionAndDataProvider constructor(context: Context) {
             mClient.subscribe(SUB_TOPIC, QoS.AtMostOnce.value, null, object : IMqttActionListener {
                 override fun onSuccess(asyncActionToken: IMqttToken) {
 
-//                    Log.d(TAG, "User subscription was success")
-//                    Utils.showToastMessage(mContext, "Subscribed!.")
+                    Log.d(TAG, "User subscription was success")
+//                    Toast.makeText(mContext, "Subscribed!.", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-//                    Utils.printErrorLog(TAG, "subscribe::MqttException:" + exception?.message)
+                    Log.d(TAG, "subscribe::MqttException:" + exception?.message)
                 }
             })
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,16 +20,24 @@
             android:id="@+id/pubfrag_mapimg"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:src="@drawable/backmapimg"
             android:scaleType="fitXY"
+            android:src="@drawable/backmapimg"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/pubfrag_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#1E000000"
-            app:navigationIcon="@drawable/backicon">
+            android:background="#1E000000">
+
+
+            <ImageView
+                android:id="@+id/homefrag_logo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/vzicon"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -44,107 +52,110 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pubfrag_recyclerview"
-         android:layout_width="match_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/pubfrag_toolbar"
             android:layout_marginTop="@dimen/_5sdp"
-            tools:itemCount="1"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/custom_mode_layout" />
 
 
         <LinearLayout
             android:id="@+id/pubfrag_modelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/pubfrag_mapimg"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:background="@drawable/custom_topcornerlayout"
+            android:orientation="vertical">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignBottom="@id/pubfrag_mapimg"
-                android:layout_marginStart="@dimen/_50sdp"
-                android:layout_marginEnd="@dimen/_50sdp"
-                android:background="@drawable/custom_topcornerlayout">
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:text="Your Selected Mode"
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Your Selected Mode"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/pubfrag_tv_selectedmode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_3sdp"
+                android:text="Pedestrian"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/pubfrag_tv_selectedmode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pedestrian"
-                    tools:ignore="HardcodedText"
-                    android:gravity="center"
-                    android:textSize="@dimen/_15ssp"
-                    android:padding="@dimen/_3sdp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
-
-            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/pubfrag_modelayout"
             android:background="@drawable/custom_topcornerlayout"
-            android:orientation="vertical"
             android:elevation="@dimen/_3sdp"
+            android:orientation="vertical"
             android:padding="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/tv_curraddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3229, Williams Mine Road, Rochie Park, New Jersey, 07003, United States"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:drawablePadding="@dimen/_10sdp"
-                tools:ignore="HardcodedText"
-                android:fontFamily="@font/interlight"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/interlight"
                 android:padding="@dimen/_10sdp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-                app:drawableStartCompat="@drawable/locationicon" />
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/locationicon"
+                tools:ignore="HardcodedText" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/pubfrag_sw_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:drawableStart="@drawable/questionicon"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/interlight"
+                android:includeFontPadding="false"
+                android:padding="@dimen/_10sdp"
                 android:text="Do you want to share your current/last location with others?"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:drawablePadding="@dimen/_10sdp"
-                app:thumbTint="@color/white"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:padding="@dimen/_10sdp"
-                android:fontFamily="@font/interlight"
-                android:includeFontPadding="false"
                 app:showText="true"
-                android:drawableStart="@drawable/questionicon"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/greycolor"
                 tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/pubfrag_sw_broadcast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Do you want to Broadcast alerts on your phone?"
-                android:textColor="@color/black"
-                android:includeFontPadding="false"
-                android:textStyle="bold"
-                android:enabled="false"
-                app:thumbTint="@color/white"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:drawableStart="@drawable/questionicon"
-                android:padding="@dimen/_10sdp"
-                android:fontFamily="@font/interlight"
-                app:trackTint="@color/black"
-                app:showText="true"
                 android:drawablePadding="@dimen/_10sdp"
+                android:enabled="false"
+                android:fontFamily="@font/interlight"
+                android:includeFontPadding="false"
+                android:padding="@dimen/_10sdp"
+                android:text="Do you want to Broadcast alerts on your phone?"
+                android:textColor="#808080"
+                android:textStyle="bold"
+                app:showText="true"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/greycolor"
                 tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
         </LinearLayout>

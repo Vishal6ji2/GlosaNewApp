@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.glosanewapp.R
@@ -22,6 +23,9 @@ class SubscriptionDataAdapter(context: Context?, data: ArrayList<LiveFeedsViewMo
     fun refreshAdapter(data: List<LiveFeedsViewModel>) {
         mData = data
         notifyDataSetChanged()
+    /*val oldsize=mData.size
+        mData = data
+        notifyItemRangeChanged(oldsize,mData.size)*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +35,8 @@ class SubscriptionDataAdapter(context: Context?, data: ArrayList<LiveFeedsViewMo
 
     // binds the data to the TextView in each row
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.img.setImageResource(if(mData[position].type.equals("eva")) R.drawable.emergencyicon else R.drawable.ic_pedestrianicon)
+        holder.title.text=if(mData[position].type.equals("eva")) "A emergency vehicle is moving " else "A pedestrian is moving"
         holder.streetName_tv.text = mData[position].streetName
         holder.latlng_tv.text = mData[position].latitude+", "+mData[position].longitude
         holder.speed_tv.text = mData[position].speed
@@ -49,12 +55,16 @@ class SubscriptionDataAdapter(context: Context?, data: ArrayList<LiveFeedsViewMo
         var latlng_tv: TextView
         var speed_tv: TextView
         var direction_tv: TextView
+        var title: TextView
+        var img:ImageView
 
         override fun onClick(view: View) {
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
         }
 
         init {
+            title = itemView.findViewById(R.id.custom_live_tvmoving)
+            img = itemView.findViewById(R.id.custom_live_imgtype)
             streetName_tv = itemView.findViewById(R.id.custom_live_tv_streetname)
             latlng_tv = itemView.findViewById(R.id.custom_live_tv_latlng)
             speed_tv = itemView.findViewById(R.id.custom_live_tv_speed)

@@ -79,7 +79,8 @@ public class PSMUPEREncoder {
             coder.encode(msg, sink);
         } catch (EncodeNotSupportedException | EncodeFailedException e) {
             System.out.println("Encoding failed: " + e);
-            System.exit(2);
+//            System.exit(2);
+            return new byte[0];
         }
         System.out.println("Encoded successfully.");
         /*

@@ -54,7 +54,7 @@ public final class TransmissionState extends Enumerated {
 	super(0);
     }
     
-    private TransmissionState(long value)
+    public TransmissionState(long value)
     {
 	super(value);
     }

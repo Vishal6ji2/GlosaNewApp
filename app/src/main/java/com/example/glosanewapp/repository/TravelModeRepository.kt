@@ -14,9 +14,9 @@ class TravelModeRepository {
     fun getTravelModeData(): MutableLiveData<List<TravelMode>>{
         if (travelModeList.isNotEmpty()) travelModeList.clear()
 
-        val travelMode1 = TravelMode("Pedestrian", "I'm Pedestrian So Please take care of me", R.drawable.ic_pedestrianicon)
-        val travelMode2 = TravelMode("General Vehicle", "I'm general vehicle,So Please take care of me", R.drawable.caricon)
-        val travelMode3 = TravelMode("Emergency Vehicle", "I'm Emergency Vehicle, So Please take care of me", R.drawable.caricon)
+        val travelMode1 = TravelMode("Pedestrian", "I'm Pedestrian So Please take care of me", 0)
+        val travelMode2 = TravelMode("General Vehicle", "I'm general vehicle,So Please take care of me", 1)
+        val travelMode3 = TravelMode("Emergency Vehicle", "I'm Emergency Vehicle, So Please take care of me", 2)
 
         travelModeList.add(travelMode1)
         travelModeList.add(travelMode2)

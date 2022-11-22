@@ -70,26 +70,27 @@ public class BSMUPERDecoder {
 
     }
 
-    public void decodeBSM(InputStream in){
-
+    public BasicSafetyMessage decodeBSM(InputStream in){
+BasicSafetyMessage bsm =null;
 
         /* * Decode and process the MessageFrame PDU.*/
 
         try (BufferedInputStream source = new BufferedInputStream(in)) {
             MessageFrame msg = coder.decode(source, new MessageFrame());
-            processMessageFrame(msg);
+            bsm=processMessageFrame(msg);
         } catch (DecodeNotSupportedException | DecodeFailedException | IOException e) {
             System.out.println("Decoding failed: " + e);
             System.exit(2);
         }
+        return bsm;
     }
 
     // Demonstrates how particular components of the BasicSafetyMessage are
     // accessed. Namely, the BSMcoreData and the crumb data (if present)
-    private static void processMessageFrame(MessageFrame msg) {
+    private static BasicSafetyMessage processMessageFrame(MessageFrame msg) {
 
          /** Print the decoded MessageFrame PDU.*/
-
+BasicSafetyMessage bsm =null;
         System.out.println("\nDecoded PDU...\n");
         System.out.println(msg);
 
@@ -98,7 +99,7 @@ public class BSMUPERDecoder {
             System.out.println("The decoded PDU contains the BasicSafetyMessage.");
             System.out.println("Access and display the BSM core data " +
                     "and the crumb data");
-            BasicSafetyMessage bsm = (BasicSafetyMessage) msg.getValue().getDecodedValue();
+            bsm = (BasicSafetyMessage) msg.getValue().getDecodedValue();
             BSMcoreData bsmCoreData = bsm.getCoreData();
             System.out.println("The BSM core data:");
             System.out.println(bsmCoreData);
@@ -131,7 +132,7 @@ public class BSMUPERDecoder {
                 System.out.println("The BSM contains regional extensions.");
             else
                 System.out.println("The BSM does not contain regional extensions.");
-
+return bsm;
         }
 
 

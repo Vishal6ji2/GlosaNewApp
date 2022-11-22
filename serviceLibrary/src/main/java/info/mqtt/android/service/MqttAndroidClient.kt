@@ -270,8 +270,14 @@ class MqttAndroidClient(val context: Context, private val serverURI: String, pri
     override fun disconnect(): IMqttToken {
         val token: IMqttToken = MqttTokenAndroid(this, null, null)
         val activityToken = storeToken(token)
-        mqttService!!.disconnect(clientHandle!!, null, activityToken)
-        return token
+        try {
+            mqttService?.disconnect(clientHandle?:"", null, activityToken?:"")
+
+        }
+        catch (ex:Exception){
+            ex.printStackTrace()
+        }
+         return token
     }
 
     /**
@@ -955,9 +961,15 @@ class MqttAndroidClient(val context: Context, private val serverURI: String, pri
         token?.let {
             (it as MqttTokenAndroid).notifyComplete()
         }
-        callbacksList.forEach {
-            it.connectionLost(null)
+        try {
+            callbacksList.forEach {
+                it.connectionLost(null)
+            }
         }
+        catch (ex:Exception){
+            ex.printStackTrace()
+        }
+
     }
 
     /**

@@ -20,11 +20,13 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.location.*
 
 import com.google.android.gms.location.LocationRequest.create
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
+import kotlin.math.roundToInt
 
 class LatLngService: Service(), SensorEventListener {
 
@@ -85,7 +87,7 @@ class LatLngService: Service(), SensorEventListener {
 
 
         Log.d(TAG,"starting")
-       return START_STICKY
+       return START_REDELIVER_INTENT
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
@@ -118,7 +120,6 @@ class LatLngService: Service(), SensorEventListener {
             val notification: Notification = notificationBuilder.setOngoing(true)
                 .setSmallIcon(R.mipmap.sym_def_app_icon)
                 .setContentTitle("App is running on foreground")
-
                 .setPriority(Notification.PRIORITY_LOW)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setChannelId("MyChannelId2")
@@ -154,13 +155,13 @@ class LatLngService: Service(), SensorEventListener {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
-    fun sensorstart() {
+    private fun sensorstart() {
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) == null) {
             if ((mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) || (mSensorManager.getDefaultSensor(
                     Sensor.TYPE_MAGNETIC_FIELD
                 ) == null)
             ) {
-                Toast.makeText(this, "Direction isn't working", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Direction isn't working", Toast.LENGTH_SHORT).show()
             } else {
                 mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
                 mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
@@ -200,7 +201,7 @@ class LatLngService: Service(), SensorEventListener {
             ) + 360).toInt() % 360
         }
 
-        mAzimuth = Math.round(mAzimuth.toFloat())
+        mAzimuth = mAzimuth.toFloat().roundToInt()
 
         var where = "NW"
 
@@ -219,6 +220,7 @@ class LatLngService: Service(), SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
+        // this is unused currently
     }
 
 }

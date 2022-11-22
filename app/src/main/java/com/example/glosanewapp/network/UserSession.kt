@@ -1,7 +1,8 @@
-package com.example.latlngapp.network
+package com.example.glosanewapp.network
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.fragment.app.Fragment
 
 class UserSession(context: Context) {
 
@@ -11,10 +12,10 @@ class UserSession(context: Context) {
     private val IS_USER_REGISTERED = "isUserReg"
 
 
-    fun putUserId(USERid: String){
+    fun putUserId(userId: String){
 
         editor.putBoolean(IS_USER_REGISTERED,true)
-        editor.putString(USER_ID_KEY, USERid)
+        editor.putString(USER_ID_KEY, userId)
         editor.apply()
     }
 
@@ -24,6 +25,11 @@ class UserSession(context: Context) {
 
     fun checkLogin(): Boolean {
         return sharedPreferences.getBoolean(IS_USER_REGISTERED, false)
+    }
+
+    fun clearSession() {
+        editor.clear()
+        editor.apply()
     }
 
 

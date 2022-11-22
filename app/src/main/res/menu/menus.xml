@@ -5,7 +5,6 @@
 
     <item android:id="@+id/navigation_publish"
         android:icon="@drawable/publishicon"
-
         android:title="Publish"
         app:showAsAction="withText"
         tools:ignore="HardcodedText" />

@@ -45,6 +45,7 @@
             android:textSize="@dimen/_12ssp"
             android:fontFamily="@font/interregular"
             android:textColor="#989797"
+            android:layout_toStartOf="@id/custom_live_tv_speed"
             android:layout_below="@id/custom_live_tvmoving"
             android:layout_alignStart="@id/custom_live_tvmoving" />
 
@@ -55,6 +56,8 @@
             android:layout_alignParentEnd="true"
             android:drawablePadding="@dimen/_5sdp"
             android:textColor="#565656"
+            android:minEms="10"
+            android:maxLength="20"
             android:textSize="@dimen/_10ssp"
             app:drawableStartCompat="@drawable/ic_arrowmapicon"
             tools:ignore="HardcodedText" />

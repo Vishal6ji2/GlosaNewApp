@@ -5,34 +5,23 @@
     android:id="@+id/navigation"
     app:startDestination="@id/navigation_home">
 
-
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.glosanewapp.ui.fragments.HomeFragment"
         android:label="fragment_home"
-
         tools:layout="@layout/fragment_home">
-        <action
-            app:destination="@id/navigation_publish"
-            android:id="@+id/action_home_to_publish"
-            >
-        </action>
-        <action
-            app:destination="@id/navigation_subscribe"
-            android:id="@+id/action_home_to_subscribe"
-            >
-        </action>
-<!--
-        <action android:id="@+id/cat_to_subcat"
-            app:destination="@+id/subCategoriesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"/>
--->
-<!--
 
-        <action android:id="@+id/cat_to_editprofile"
-            app:destination="@+id/editProfileFragment"/>
--->
+        <action
+            android:id="@+id/action_home_to_publish"
+            app:destination="@id/navigation_publish"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_home_to_subscribe"
+            app:destination="@id/navigation_subscribe"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -40,30 +29,12 @@
         android:id="@+id/navigation_publish"
         android:name="com.example.glosanewapp.ui.fragments.PublishFragment"
         android:label="fragment_publish"
-
-        tools:layout="@layout/fragment_publish" >
-<!--
-        <action android:id="@+id/goto_profile"
-            app:destination="@+id/profileFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"/>-->
-
-    </fragment>
+        tools:layout="@layout/fragment_publish" />
 
     <fragment
         android:id="@+id/navigation_subscribe"
         android:name="com.example.glosanewapp.ui.fragments.SubscribeFragment"
         android:label="fragment_subscribe"
-
-        tools:layout="@layout/fragment_subscribe" >
-
-<!--
-        <action android:id="@+id/goto_profile"
-            app:destination="@+id/profileFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"/>
--->
-
-    </fragment>
+        tools:layout="@layout/fragment_subscribe" />
 
 </navigation>
