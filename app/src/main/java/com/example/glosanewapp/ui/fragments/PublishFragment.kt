@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -30,13 +31,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import com.example.glosanewapp.R
 import com.example.glosanewapp.databinding.FragmentPublishBinding
 import com.example.glosanewapp.network.UserSession
 import com.example.glosanewapp.network.model.MqttUtils
 import com.example.glosanewapp.network.model.TravelMode
 import com.example.glosanewapp.services.LatLngService
+import com.example.glosanewapp.ui.SnapHelperOneByOne
 import com.example.glosanewapp.ui.adapters.TravelModeAdapter
 import com.example.glosanewapp.util.*
 import com.example.glosanewapp.util.JERDecoderUtils.BSMResponse
@@ -49,6 +50,7 @@ import com.google.android.gms.location.*
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import com.google.protobuf.Timestamp
+import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import info.mqtt.android.service.MqttAndroidClient
 import j2735.dsrc.Heading
 import j2735.dsrc.Latitude
@@ -372,23 +374,25 @@ class PublishFragment : Fragment() {
 
         travelModeViewModel = ViewModelProvider(this)[TravelModeViewModel::class.java]
 
-        //init the Custom adataper
+        //init the Custom adapter
         travelModeAdapter = TravelModeAdapter()
         //set the CustomAdapter
         recyclerView.adapter = travelModeAdapter
+        recyclerView.set3DItem(true)
+        recyclerView.setFlat(true)
 
-        val snapHelper = PagerSnapHelper()
+
+        val snapHelper = SnapHelperOneByOne()
         snapHelper.attachToRecyclerView(recyclerView)
-
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    pos =
-                        (recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstCompletelyVisibleItemPosition()
+                    pos = publishBinding.pubfragRecyclerview.getCarouselLayoutManager().getLastVisiblePosition()
 
 //                    Toast.makeText(requireContext(), pos.toString(), Toast.LENGTH_SHORT).show()
+
                     if (pos == 0) {
                         "Pedestrian".also { publishBinding.pubfragTvSelectedmode.text = it }
                         publishBinding.pubfragSwBroadcast.isEnabled = false
@@ -426,9 +430,11 @@ class PublishFragment : Fragment() {
 
 
 
+
         getAllMode()
 
     }
+
 
     // list of modes(Pedestrian, General Vehicle, Emergency Vehicle)
     private fun getAllMode() {

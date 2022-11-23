@@ -50,15 +50,12 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
             android:id="@+id/pubfrag_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/pubfrag_toolbar"
             android:layout_marginTop="@dimen/_5sdp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/custom_mode_layout" />
 
 
