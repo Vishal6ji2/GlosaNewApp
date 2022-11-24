@@ -28,7 +28,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.glosanewapp.R
@@ -37,7 +36,6 @@ import com.example.glosanewapp.network.UserSession
 import com.example.glosanewapp.network.model.MqttUtils
 import com.example.glosanewapp.network.model.TravelMode
 import com.example.glosanewapp.services.LatLngService
-import com.example.glosanewapp.ui.SnapHelperOneByOne
 import com.example.glosanewapp.ui.adapters.TravelModeAdapter
 import com.example.glosanewapp.util.*
 import com.example.glosanewapp.util.JERDecoderUtils.BSMResponse
@@ -45,12 +43,13 @@ import com.example.glosanewapp.util.JERDecoderUtils.EVAResponse
 import com.example.glosanewapp.util.JERDecoderUtils.PSMResponse
 import com.example.glosanewapp.util.JERDecoderUtils.RSAResponse
 import com.example.glosanewapp.util.protobuf.RoutedMsgOuterClass
+import com.example.glosanewapp.util.uihelper.ArcLayoutManager
+import com.example.glosanewapp.util.uihelper.CircleScaleLayoutManager
 import com.example.glosanewapp.viewmodel.TravelModeViewModel
 import com.google.android.gms.location.*
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import com.google.protobuf.Timestamp
-import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import info.mqtt.android.service.MqttAndroidClient
 import j2735.dsrc.Heading
 import j2735.dsrc.Latitude
@@ -124,7 +123,13 @@ class PublishFragment : Fragment() {
                 if (publishBinding.pubfragSwLocation.isChecked && pos == 0) {
                     if (!isServiceAlive(LatLngService::class.java))
                         startBackgroundService()
-                    callpublishPSM(mlatitude, mlongitude, mheading, mspeed, userSession.getUserId()?.toInt() ?: 0)
+                    callpublishPSM(
+                        mlatitude,
+                        mlongitude,
+                        mheading,
+                        mspeed,
+                        userSession.getUserId()?.toInt() ?: 0
+                    )
 //                publishSPAT(userSession.getUserId()!!.toInt())
 
 //                publishMapData(userSession.getUserId()!!.toInt())
@@ -367,31 +372,41 @@ class PublishFragment : Fragment() {
 
     // Modes set to Recyclerview
     private fun initRecyclerView() {
-        val recyclerView = publishBinding.pubfragRecyclerview
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.setHasFixedSize(true)
 
         travelModeViewModel = ViewModelProvider(this)[TravelModeViewModel::class.java]
 
-        //init the Custom adapter
+        val recyclerView = publishBinding.pubfragRecyclerview
         travelModeAdapter = TravelModeAdapter()
-        //set the CustomAdapter
+        travelModeViewModel?.allTravelData?.let { travelModeAdapter?.setDeveloperList(it) }
         recyclerView.adapter = travelModeAdapter
-        recyclerView.set3DItem(true)
-        recyclerView.setFlat(true)
 
 
-        val snapHelper = SnapHelperOneByOne()
+
+        val layoutManager=CircleScaleLayoutManager(requireContext())
+        layoutManager.radius = 900
+        layoutManager.angleInterval = 55
+        recyclerView.layoutManager = layoutManager
+       // recyclerView.layoutManager = ScaleLayoutManager(requireContext(),10)
+       // recyclerView.layoutManager = ArcLayoutManager(requireContext(),200)
+        //recyclerView.itemAnimator = DefaultItemAnimator()
+
+
+        //init the Custom adapter
+
+        //set the CustomAdapter
+
+        /*  recyclerView.set3DItem(true)
+          recyclerView.setFlat(true)*/
+
+
+        val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(recyclerView)
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    pos = publishBinding.pubfragRecyclerview.getCarouselLayoutManager().getLastVisiblePosition()
-
-//                    Toast.makeText(requireContext(), pos.toString(), Toast.LENGTH_SHORT).show()
+                     pos = layoutManager.findLastVisibleItemPosition()
 
                     if (pos == 0) {
                         "Pedestrian".also { publishBinding.pubfragTvSelectedmode.text = it }
@@ -431,7 +446,7 @@ class PublishFragment : Fragment() {
 
 
 
-        getAllMode()
+        //getAllMode()
 
     }
 
@@ -913,8 +928,8 @@ class PublishFragment : Fragment() {
         )
 //        Toast.makeText(mcontext,"destroyed",Toast.LENGTH_SHORT).show()
         client.disconnect()
-        mcontext.stopService(Intent(mcontext, LatLngService::class.java))
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+        //  mcontext.stopService(Intent(mcontext, LatLngService::class.java))
+        //  fusedLocationProviderClient.removeLocationUpdates(locationCallback)
 
         publishBinding.pubfragSwLocation.isChecked = false
         publishBinding.pubfragSwBroadcast.isChecked = false

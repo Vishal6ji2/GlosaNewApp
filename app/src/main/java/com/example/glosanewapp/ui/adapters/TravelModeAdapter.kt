@@ -3,7 +3,10 @@ package com.example.glosanewapp.ui.adapters
 import android.content.res.Resources
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.glosanewapp.R
@@ -103,6 +106,21 @@ class TravelModeAdapter : RecyclerView.Adapter<TravelModeAdapter.RecyclerViewVie
     fun setDeveloperList(travelModeList: ArrayList<TravelMode>) {
         this.travelModeList = travelModeList
         notifyDataSetChanged()
+    }
+
+    private fun setScaleAnimation(view: View) {
+        val anim = ScaleAnimation(
+            0.0f,
+            1.0f,
+            0.0f,
+            1.0f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f
+        )
+        anim.duration = 1000
+        view.startAnimation(anim)
     }
 
     inner class RecyclerViewViewHolder(var customModeLayoutBinding: CustomModeLayoutBinding) :

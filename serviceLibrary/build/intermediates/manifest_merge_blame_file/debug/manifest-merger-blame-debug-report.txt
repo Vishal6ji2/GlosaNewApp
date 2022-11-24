@@ -4,28 +4,28 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="21"
-6-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+6-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml
 7        android:targetSdkVersion="32" />
-7-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml
+7-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml
 8
 9    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-9-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:4:5-79
-9-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:4:22-76
+9-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:4:5-79
+9-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:4:22-76
 10    <uses-permission android:name="android.permission.INTERNET" />
-10-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:5:5-67
-10-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:5:22-64
+10-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:5:5-67
+10-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:5:22-64
 11    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-11-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:6:5-79
-11-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:6:22-76
+11-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:6:5-79
+11-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:6:22-76
 12    <uses-permission android:name="android.permission.WAKE_LOCK" />
-12-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:7:5-67
-12-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:7:22-65
+12-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:7:5-67
+12-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:7:22-65
 13
 14    <application>
-14-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:9:5-13:19
+14-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:9:5-13:19
 15        <service android:name="info.mqtt.android.service.MqttService" />
-15-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:11:9-73
-15-->/home/amantya/GlosaNewApp12NOV/GlosaNewApp-master/serviceLibrary/src/main/AndroidManifest.xml:11:18-70
+15-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:11:9-73
+15-->D:\stablize\serviceLibrary\src\main\AndroidManifest.xml:11:18-70
 16    </application>
 17
 18</manifest>
