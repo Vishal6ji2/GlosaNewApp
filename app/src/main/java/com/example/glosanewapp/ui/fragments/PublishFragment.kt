@@ -383,8 +383,9 @@ class PublishFragment : Fragment() {
 
 
         val layoutManager=CircleScaleLayoutManager(requireContext())
-        layoutManager.radius = 900
-        layoutManager.angleInterval = 55
+        layoutManager.radius = 800
+        layoutManager.angleInterval = 45
+        //layoutManager.distanceToBottom =200
         recyclerView.layoutManager = layoutManager
        // recyclerView.layoutManager = ScaleLayoutManager(requireContext(),10)
        // recyclerView.layoutManager = ArcLayoutManager(requireContext(),200)

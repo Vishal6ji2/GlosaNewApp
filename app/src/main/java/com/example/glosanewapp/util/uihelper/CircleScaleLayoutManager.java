@@ -293,7 +293,7 @@ public class CircleScaleLayoutManager extends ViewPagerLayoutManager {
     public static class Builder {
         private static int INTERVAL_ANGLE = 30;// The default mInterval angle between each items
         private static float DISTANCE_RATIO = 10f; // Finger swipe distance divide item rotate angle
-        private static final float SCALE_RATE = 1.2f;
+        private static final float SCALE_RATE = 1.0f;
         private static int INVALID_VALUE = Integer.MIN_VALUE;
 
         private int radius;

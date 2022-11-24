@@ -12,6 +12,8 @@ class ArcOldLayoutManager(
     private val context: Context,
     private var horizontalOffset: Int = 0
 ) : RecyclerView.LayoutManager() {
+
+
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams =
         RecyclerView.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
