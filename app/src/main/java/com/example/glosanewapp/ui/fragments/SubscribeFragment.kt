@@ -326,8 +326,7 @@ val new = "\n\nA new pedestrian is moving near you at position " + fulladdress +
                         val throughtfare = address.thoroughfare
                         val knownName = address.featureName
                         val localarea = " ${address.subLocality}"
-                        val
-                        fulladdress = "($latdouble, $lngdouble), $localarea, $city"
+                        val fulladdress = "($latdouble, $lngdouble), $localarea, $city"
                         Log.d(TAG, "getPedestrianAddress: $fulladdress")
                         var check = false
                         for (item in subscribeData!!.indices) {
