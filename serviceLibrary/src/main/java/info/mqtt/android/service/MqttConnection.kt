@@ -14,7 +14,6 @@ import android.os.PowerManager.WakeLock
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions
 import android.os.Bundle
 import java.io.File
-import java.lang.Exception
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
 import org.eclipse.paho.client.mqttv3.IMqttActionListener
@@ -26,6 +25,7 @@ import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import android.util.Log
 import android.os.PowerManager
 import info.mqtt.android.service.ping.AlarmPingSender
+import kotlin.Exception
 
 /**
  * MqttConnection holds a MqttAsyncClient {host,port,clientId} instance to perform
@@ -102,7 +102,13 @@ internal class MqttConnection(
             cleanSession = options.isCleanSession
             if (options.isCleanSession) { // if it's a clean session,
                 // discard old data
-                service.messageStore.persistenceDao().deleteClientHandle(clientHandle)
+                try {
+                    service.messageStore.persistenceDao().deleteClientHandle(clientHandle)
+                }
+                catch (ex:Exception){
+                    ex.printStackTrace()
+                }
+
             }
         }
         service.traceDebug("Connecting {$serverURI} as {$clientId}")

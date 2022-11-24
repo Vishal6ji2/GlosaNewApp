@@ -12,4 +12,7 @@ class TravelModeViewModel : ViewModel() {
     val allTravelMode: LiveData<List<TravelMode>>
         get() = travelModeRepository.getTravelModeData()
 
+    val allTravelData : ArrayList<TravelMode>
+        get() = travelModeRepository.getTravelModes()
+
 }

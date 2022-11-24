@@ -2,8 +2,6 @@ package com.example.glosanewapp.services
 
 
 import android.Manifest
-import android.R
-
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -17,18 +15,24 @@ import android.location.Location
 import android.os.Build
 import android.os.IBinder
 import android.os.Looper
+import android.os.PowerManager
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.example.glosanewapp.ui.activity.MainActivity
 import com.google.android.gms.location.*
-
 import com.google.android.gms.location.LocationRequest.create
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.SharingCommand
 import kotlin.math.roundToInt
 
+
 class LatLngService: Service(), SensorEventListener {
+
+    private var wakeLock: PowerManager.WakeLock? = null
+    private var isServiceStarted = false
 
     var TAG = "LatLngService"
 
@@ -85,9 +89,67 @@ class LatLngService: Service(), SensorEventListener {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-
         Log.d(TAG,"starting")
-       return START_REDELIVER_INTENT
+
+        if (intent != null) {
+            val action = intent.action
+            Log.d(TAG,"using an intent with action $action")
+            when (action) {
+                SharingCommand.START.name -> startService()
+                SharingCommand.STOP.name -> stopService()
+                else -> Log.d(TAG, "This should never happen. No action in the received intent")
+            }
+        } else {
+            Log.d(TAG, "with a null intent. It has been probably restarted by the system.")
+        }
+
+       return START_STICKY
+    }
+
+    private fun startService() {
+        if (isServiceStarted) return
+        Log.d(TAG,"Starting the foreground service task")
+        Toast.makeText(this, "Service starting its task", Toast.LENGTH_SHORT).show()
+        isServiceStarted = true
+//        setServiceState(this, ServiceState.STARTED)
+
+        // we need this lock so our service gets not affected by Doze Mode
+        wakeLock =
+            (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
+                newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EndlessService::lock").apply {
+                    acquire()
+                }
+            }
+
+        // we're starting a loop in a coroutine
+        GlobalScope.launch(Dispatchers.IO) {
+            while (isServiceStarted) {
+                launch(Dispatchers.IO) {
+//                    pingFakeServer()
+                }
+                delay(1 * 60 * 1000)
+            }
+            Log.d(TAG,"End of the loop for the service")
+        }
+    }
+
+    private fun stopService() {
+        Log.d(TAG, "Stopping the foreground service")
+        Toast.makeText(this, "Service stopping", Toast.LENGTH_SHORT).show()
+        try {
+            wakeLock?.let {
+                if (it.isHeld) {
+                    it.release()
+                }
+            }
+            stopForeground(true)
+            stopSelf()
+        } catch (e: Exception) {
+            Log.d(TAG, "Service stopped without being started: ${e.message}")
+        }
+        isServiceStarted = false
+//        (this, STOPPED)
+
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
@@ -117,10 +179,14 @@ class LatLngService: Service(), SensorEventListener {
             val notificationBuilder: Notification.Builder = Notification.Builder(
                 this, "MyChannelId2"
             )
+            val pendingIntent: PendingIntent = Intent(this, MainActivity::class.java).let { notificationIntent ->
+                PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
+            }
             val notification: Notification = notificationBuilder.setOngoing(true)
-                .setSmallIcon(R.mipmap.sym_def_app_icon)
+                .setSmallIcon(android.R.mipmap.sym_def_app_icon)
                 .setContentTitle("App is running on foreground")
-                .setPriority(Notification.PRIORITY_LOW)
+                .setContentIntent(pendingIntent)
+                .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setChannelId("MyChannelId2")
                 .build()

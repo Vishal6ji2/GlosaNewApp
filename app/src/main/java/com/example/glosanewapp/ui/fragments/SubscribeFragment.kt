@@ -43,6 +43,7 @@ import com.google.android.gms.location.Priority
 import j2735.dsrc.*
 import java.math.BigInteger
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.log10
 
@@ -102,7 +103,20 @@ class SubscribeFragment : Fragment(), SubscriptionDataListener {
                 if (subscriptionFragmentViewModel.redlight.get() == true) "${redlighttime / 10}+\nSeconds to green" else "${greenlighttime / 10}+\nSeconds to red"
 
             Log.d(TAG, "onReceive: " + userSession.getUserId())
-
+            var dellist:ArrayList<Int> = ArrayList()
+            var check=false
+            for (item in subscribeData!!.indices) {
+                //Log.d(TAG, "ids: ${subscribeData!![item].id}")
+                if (System.currentTimeMillis() - subscribeData!![item].datatime >= 10000) {
+                    dellist.add(item)
+                    check = true
+                }
+            }
+            for(item2 in dellist){
+                subscribeData!!.removeAt(item2)
+            }
+            if(check)
+                subscriptionDataAdapter.notifyDataSetChanged()
             calculatspeed()
             /*  callpublish(
                   mlatitude,

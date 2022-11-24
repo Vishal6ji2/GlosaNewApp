@@ -21,6 +21,7 @@
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:src="@drawable/ic_pedestrianicon"
+            android:layout_alignTop="@id/custom_live_tvmoving"
             tools:ignore="ContentDescription" />
 
         <TextView

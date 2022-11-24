@@ -9,10 +9,12 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +22,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +31,6 @@ import com.example.glosanewapp.databinding.FragmentHomeBinding
 import com.example.glosanewapp.network.UserSession
 import com.example.glosanewapp.network.model.MqttUtils
 import com.example.glosanewapp.ui.activity.LoginActivity
-import com.example.glosanewapp.util.PermissionUtils
 import com.example.glosanewapp.viewmodel.HomeFragmentViewModel
 import com.google.android.gms.location.*
 import java.util.*
@@ -73,7 +72,8 @@ class HomeFragment : Fragment() {
 
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
 
         homeFragmentViewModel =
             ViewModelProvider(requireActivity())[HomeFragmentViewModel::class.java]
@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
         homeBinding.viewmodel = homeFragmentViewModel
         homeBinding.executePendingBindings()
 
-        getCurrentLocation()
+
 
         locationRequest = LocationRequest.create().apply {
             interval = 1000
@@ -114,6 +114,10 @@ class HomeFragment : Fragment() {
         return homeBinding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        getCurrentLocation()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -192,8 +196,16 @@ class HomeFragment : Fragment() {
                         Manifest.permission.ACCESS_COARSE_LOCATION
                     ) != PackageManager.PERMISSION_GRANTED
                 ) {
+
                     requestPermission()
                     return
+                }
+                if(ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED){
+                    Log.d(TAG, "getCurrentLocation: ")
+                    dialogForBackgroundPermissionLocation()
                 }
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener(requireActivity()) { taskId ->
                     val location: Location? = taskId.result
@@ -220,24 +232,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun requestPermission() {
-        if (Build.VERSION.SDK_INT >= 33) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                PERMISSION_REQUEST_ACCESS_LOCATION
-            )
-        }else{
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                ),
-                PERMISSION_REQUEST_ACCESS_LOCATION
-            )
-        }
+
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            ),
+            PERMISSION_REQUEST_ACCESS_LOCATION
+        )
+
     }
 
     companion object {
@@ -269,16 +273,53 @@ class HomeFragment : Fragment() {
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                Toast.makeText(requireContext(), "Granted", Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "onRequestPermissionsResult: ")
                 getCurrentLocation()
+
             } else {
+                dialogForBackgroundPermissionLocation()
                 Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    fun dialogForBackgroundPermissionLocation() {
+
+        val builder = AlertDialog.Builder(requireContext())
+        var alertDialog = builder.create()
+
+        if (!alertDialog.isShowing) {
+            builder.setMessage("This app requires background location access for better results. Please enable location permission to \"Allow all the time \"inside settings page")
+
+            builder.setTitle("Alert")
+
+            builder.setCancelable(false)
+
+            builder.setNegativeButton("Continue") { _: DialogInterface, _: Int ->
+
+                // When the user click yes button then app will close
+
+                var bundle = Bundle()
+                bundle.putString("pointer_location", "Allow all the time")
+                val i = Intent()
+                i.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                i.addCategory(Intent.CATEGORY_DEFAULT)
+                i.putExtras(bundle)
+                i.data = Uri.parse("package:" + mcontext.packageName)
+
+                mcontext.startActivity(i)
+
+            }
+            alertDialog = builder.create()
+            alertDialog.setCanceledOnTouchOutside(false)
+            alertDialog.show()
+        }
+    }
+
     private fun isLocationEnabled(): Boolean {
 
-        val locationManager: LocationManager = requireActivity().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            requireActivity().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -286,7 +327,8 @@ class HomeFragment : Fragment() {
 
     private fun getLocationUpdates() {
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -348,6 +390,5 @@ class HomeFragment : Fragment() {
             ex.printStackTrace()
         }
     }
-
 
 }

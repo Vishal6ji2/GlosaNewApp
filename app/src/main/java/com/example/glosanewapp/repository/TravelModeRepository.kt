@@ -26,4 +26,18 @@ class TravelModeRepository {
 
         return liveTravelModeData
     }
+
+    fun getTravelModes(): ArrayList<TravelMode> {
+        val list = ArrayList<TravelMode>()
+        val travelMode1 = TravelMode("Pedestrian", "I'm Pedestrian So Please take care of me", 0)
+        val travelMode2 =
+            TravelMode("General Vehicle", "I'm general vehicle,So Please take care of me", 1)
+        val travelMode3 =
+            TravelMode("Emergency Vehicle", "I'm Emergency Vehicle, So Please take care of me", 2)
+
+        list.add(travelMode1)
+        list.add(travelMode2)
+        list.add(travelMode3)
+        return list
+    }
 }
