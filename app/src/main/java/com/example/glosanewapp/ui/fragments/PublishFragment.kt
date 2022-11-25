@@ -28,6 +28,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.glosanewapp.R
@@ -36,20 +37,21 @@ import com.example.glosanewapp.network.UserSession
 import com.example.glosanewapp.network.model.MqttUtils
 import com.example.glosanewapp.network.model.TravelMode
 import com.example.glosanewapp.services.LatLngService
+import com.example.glosanewapp.ui.SnapHelperOneByOne
 import com.example.glosanewapp.ui.adapters.TravelModeAdapter
+import com.example.glosanewapp.ui.uihelper.CircleScaleLayoutManager
 import com.example.glosanewapp.util.*
 import com.example.glosanewapp.util.JERDecoderUtils.BSMResponse
 import com.example.glosanewapp.util.JERDecoderUtils.EVAResponse
 import com.example.glosanewapp.util.JERDecoderUtils.PSMResponse
 import com.example.glosanewapp.util.JERDecoderUtils.RSAResponse
 import com.example.glosanewapp.util.protobuf.RoutedMsgOuterClass
-import com.example.glosanewapp.util.uihelper.ArcLayoutManager
-import com.example.glosanewapp.util.uihelper.CircleScaleLayoutManager
 import com.example.glosanewapp.viewmodel.TravelModeViewModel
 import com.google.android.gms.location.*
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import com.google.protobuf.Timestamp
+import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import info.mqtt.android.service.MqttAndroidClient
 import j2735.dsrc.Heading
 import j2735.dsrc.Latitude
@@ -123,13 +125,7 @@ class PublishFragment : Fragment() {
                 if (publishBinding.pubfragSwLocation.isChecked && pos == 0) {
                     if (!isServiceAlive(LatLngService::class.java))
                         startBackgroundService()
-                    callpublishPSM(
-                        mlatitude,
-                        mlongitude,
-                        mheading,
-                        mspeed,
-                        userSession.getUserId()?.toInt() ?: 0
-                    )
+                    callpublishPSM(mlatitude, mlongitude, mheading, mspeed, userSession.getUserId()?.toInt() ?: 0)
 //                publishSPAT(userSession.getUserId()!!.toInt())
 
 //                publishMapData(userSession.getUserId()!!.toInt())
@@ -382,13 +378,12 @@ class PublishFragment : Fragment() {
 
 
 
-        val layoutManager=CircleScaleLayoutManager(requireContext())
-        layoutManager.radius = 800
-        layoutManager.angleInterval = 45
-        //layoutManager.distanceToBottom =200
+        val layoutManager= CircleScaleLayoutManager(requireContext())
+        layoutManager.radius = 900
+        layoutManager.angleInterval = 55
         recyclerView.layoutManager = layoutManager
-       // recyclerView.layoutManager = ScaleLayoutManager(requireContext(),10)
-       // recyclerView.layoutManager = ArcLayoutManager(requireContext(),200)
+        // recyclerView.layoutManager = ScaleLayoutManager(requireContext(),10)
+        // recyclerView.layoutManager = ArcLayoutManager(requireContext(),200)
         //recyclerView.itemAnimator = DefaultItemAnimator()
 
 
@@ -407,7 +402,7 @@ class PublishFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                     pos = layoutManager.findLastVisibleItemPosition()
+                    pos = layoutManager.findLastVisibleItemPosition()
 
                     if (pos == 0) {
                         "Pedestrian".also { publishBinding.pubfragTvSelectedmode.text = it }
@@ -443,9 +438,6 @@ class PublishFragment : Fragment() {
                 }
             }
         })
-
-
-
 
         //getAllMode()
 
@@ -818,6 +810,13 @@ class PublishFragment : Fragment() {
         latLngService = LatLngService()
         serviceintent = Intent(mcontext, latLngService.javaClass)
         serviceintent.setPackage(mcontext.packageName)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d(TAG, "startBackgroundService: Starting the service in >=26 Mode")
+            mcontext.startForegroundService(serviceintent)
+            return
+        }
+
         mcontext.startService(serviceintent)
 
     }
@@ -929,8 +928,8 @@ class PublishFragment : Fragment() {
         )
 //        Toast.makeText(mcontext,"destroyed",Toast.LENGTH_SHORT).show()
         client.disconnect()
-        //  mcontext.stopService(Intent(mcontext, LatLngService::class.java))
-        //  fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+        mcontext.stopService(Intent(mcontext, LatLngService::class.java))
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
 
         publishBinding.pubfragSwLocation.isChecked = false
         publishBinding.pubfragSwBroadcast.isChecked = false

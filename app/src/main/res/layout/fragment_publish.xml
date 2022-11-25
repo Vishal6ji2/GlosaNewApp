@@ -14,14 +14,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.pubFragment">
+        tools:context=".ui.fragments.pubFragment"
+        android:background="@drawable/nearbycabs">
 
         <ImageView
             android:id="@+id/pubfrag_mapimg"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:scaleType="fitXY"
-            android:src="@drawable/backmapimg"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -49,6 +49,7 @@
                 tools:ignore="HardcodedText" />
 
         </com.google.android.material.appbar.MaterialToolbar>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pubfrag_recyclerview"
@@ -107,11 +108,13 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:drawablePadding="@dimen/_10sdp"
-                android:fontFamily="@font/interlight"
+                android:fontFamily="@font/intermedium"
                 android:padding="@dimen/_10sdp"
+                android:text="3229 Williams Mine Road, Rochelle Park,
+New Jersey, 07662
+, United States"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"
+                android:textSize="@dimen/_13ssp"
                 app:drawableStartCompat="@drawable/locationicon"
                 tools:ignore="HardcodedText" />
 
@@ -123,15 +126,13 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:drawableStart="@drawable/questionicon"
                 android:drawablePadding="@dimen/_10sdp"
-                android:fontFamily="@font/interlight"
+                android:fontFamily="@font/interregular"
                 android:includeFontPadding="false"
                 android:padding="@dimen/_10sdp"
+                android:theme="@style/SCBSwitch"
                 android:text="Do you want to share your current/last location with others?"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:showText="true"
-                app:thumbTint="@color/white"
-                app:trackTint="@color/greycolor"
+                android:textSize="@dimen/_13ssp"
                 tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -143,15 +144,13 @@
                 android:drawableStart="@drawable/questionicon"
                 android:drawablePadding="@dimen/_10sdp"
                 android:enabled="false"
-                android:fontFamily="@font/interlight"
+                android:fontFamily="@font/interregular"
                 android:includeFontPadding="false"
                 android:padding="@dimen/_10sdp"
+                android:theme="@style/SCBSwitch"
                 android:text="Do you want to Broadcast alerts on your phone?"
                 android:textColor="#808080"
-                android:textStyle="bold"
-                app:showText="true"
-                app:thumbTint="@color/white"
-                app:trackTint="@color/greycolor"
+                android:textSize="@dimen/_13ssp"
                 tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
         </LinearLayout>

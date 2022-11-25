@@ -29,7 +29,7 @@ class TravelModeRepository {
     }
 
     fun getTravelModes(): ArrayList<TravelMode> {
-        var list = ArrayList<TravelMode>()
+        val list = ArrayList<TravelMode>()
         val travelMode1 = TravelMode("Pedestrian", "I'm Pedestrian So Please take care of me", 0)
         val travelMode2 =
             TravelMode("General Vehicle", "I'm general vehicle,So Please take care of me", 1)

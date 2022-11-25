@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/custom_topcornerlayout.xml" value="0.1045" />
+        <entry key="app/src/main/res/drawable/emergencyicon.xml" value="0.1045" />
         <entry key="app/src/main/res/drawable/greensignalicon.xml" value="0.1055" />
         <entry key="app/src/main/res/drawable/ic_emergency.xml" value="0.1055" />
         <entry key="app/src/main/res/drawable/ic_generalvehicle.xml" value="0.1055" />
