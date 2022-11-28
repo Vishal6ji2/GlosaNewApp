@@ -11,6 +11,13 @@
 
     </data>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardUseCompatPadding="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,8 +27,8 @@
             android:id="@+id/custom_live_imgtype"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_pedestrianicon"
             android:layout_alignTop="@id/custom_live_tvmoving"
+            android:src="@drawable/emergencyicon"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -29,13 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_1sdp"
             android:layout_toStartOf="@id/custom_live_tv_latlng"
             android:layout_toEndOf="@id/custom_live_imgtype"
-            android:fontFamily="@font/interbold"
-            android:text="A pedestrian is moving"
+            android:fontFamily="@font/intermedium"
+            android:text="Emergency is coming"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -46,8 +53,10 @@
             android:textSize="@dimen/_12ssp"
             android:fontFamily="@font/interregular"
             android:textColor="#989797"
-            android:layout_toStartOf="@id/custom_live_tv_speed"
+            android:text="Thanisandra Mainroad"
+            android:layout_toStartOf="@id/custom_live_tv_latlng"
             android:layout_below="@id/custom_live_tvmoving"
+            android:layout_marginEnd="@dimen/_1sdp"
             android:layout_alignStart="@id/custom_live_tvmoving" />
 
         <TextView
@@ -58,8 +67,9 @@
             android:drawablePadding="@dimen/_5sdp"
             android:textColor="#565656"
             android:minEms="10"
+            android:text="13.09286, 77.6324"
             android:maxLength="20"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_12ssp"
             app:drawableStartCompat="@drawable/ic_arrowmapicon"
             tools:ignore="HardcodedText" />
 
@@ -71,8 +81,10 @@
             android:layout_alignStart="@id/custom_live_tv_latlng"
             android:layout_alignParentEnd="true"
             android:drawablePadding="@dimen/_5sdp"
+            android:fontFamily="@font/interregular"
+            android:text="1.2mph"
             android:textColor="#353535"
-            android:textSize="@dimen/_9ssp"
+            android:textSize="@dimen/_12ssp"
             app:drawableStartCompat="@drawable/ic_metericon"
             tools:ignore="HardcodedText" />
 
@@ -80,15 +92,18 @@
             android:id="@+id/custom_live_tv_direction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_9ssp"
             tools:ignore="HardcodedText"
             android:layout_below="@id/custom_live_tv_speed"
             android:layout_alignStart="@id/custom_live_tv_latlng"
             android:textColor="#353535"
+            android:textSize="@dimen/_12ssp"
+            android:text="120"
             android:drawablePadding="@dimen/_5sdp"
             app:drawableStartCompat="@drawable/ic_directiontoicon"
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </layout>

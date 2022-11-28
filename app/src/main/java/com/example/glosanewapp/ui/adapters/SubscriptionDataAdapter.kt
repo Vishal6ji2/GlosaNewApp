@@ -23,9 +23,6 @@ class SubscriptionDataAdapter(context: Context?, data: ArrayList<LiveFeedsViewMo
     fun refreshAdapter(data: List<LiveFeedsViewModel>) {
         mData = data
         notifyDataSetChanged()
-    /*val oldsize=mData.size
-        mData = data
-        notifyItemRangeChanged(oldsize,mData.size)*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,8 +32,8 @@ class SubscriptionDataAdapter(context: Context?, data: ArrayList<LiveFeedsViewMo
 
     // binds the data to the TextView in each row
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.img.setImageResource(if(mData[position].type.equals("eva")) R.drawable.emergencyicon else R.drawable.ic_pedestrianicon)
-        holder.title.text=if(mData[position].type.equals("eva")) "A emergency vehicle is moving " else "A pedestrian is moving"
+        holder.img.setImageResource(if(mData[position].type.equals("eva")) R.drawable.emergencyicon else R.drawable.pedicon)
+        holder.title.text=if(mData[position].type.equals("eva")) "Emergency is moving " else "Pedestrian is moving"
         holder.streetName_tv.text = mData[position].streetName
         holder.latlng_tv.text = mData[position].latitude+", "+mData[position].longitude
         holder.speed_tv.text = mData[position].speed

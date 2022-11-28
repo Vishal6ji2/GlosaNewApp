@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/drawable/yellowsignalicon.xml" value="0.1045" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/custom_live_layout.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/custom_live_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/custom_mode_layout.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_publish.xml" value="0.15885416666666666" />

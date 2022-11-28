@@ -60,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_11ssp"
+                android:maxLines="1"
                 android:text="@={viewmodel.userName}"
                 android:background="@android:color/transparent" />
 
@@ -75,7 +76,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textSize="@dimen/_11ssp"
-            app:passwordToggleEnabled="true"
+            app:endIconMode="password_toggle"
             tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_11ssp"
-                android:text="{viewmodel.password}"
+                android:text="@={viewmodel.password}"
+                android:inputType="textPassword"
                 android:background="@android:color/transparent" />
 
         </com.google.android.material.textfield.TextInputLayout>

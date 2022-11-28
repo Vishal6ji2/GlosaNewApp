@@ -58,6 +58,7 @@ import j2735.dsrc.Latitude
 import j2735.dsrc.Longitude
 import j2735.dsrc.Speed
 import org.eclipse.paho.client.mqttv3.*
+import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
 import java.util.*
 import kotlin.math.abs
@@ -876,11 +877,15 @@ class PublishFragment : Fragment() {
 
                 .build()
 
+
+
             Log.d(
                 TAG,
 
                 "publishPSMMessage: /$clientid/UPER/PSM"
             )
+
+
             client.publish(
                 "$pub_topic/SW/NA/VZ/$clientid/UPER/PSM",
                 routedMsg.toByteArray(),

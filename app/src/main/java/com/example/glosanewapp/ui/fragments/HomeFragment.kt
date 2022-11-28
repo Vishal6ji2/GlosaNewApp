@@ -30,6 +30,7 @@ import com.example.glosanewapp.R
 import com.example.glosanewapp.databinding.FragmentHomeBinding
 import com.example.glosanewapp.network.UserSession
 import com.example.glosanewapp.network.model.MqttUtils
+
 import com.example.glosanewapp.ui.activity.LoginActivity
 import com.example.glosanewapp.viewmodel.HomeFragmentViewModel
 import com.google.android.gms.location.*
@@ -47,6 +48,8 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
+
+
 
 
     lateinit var builder: AlertDialog.Builder
@@ -71,6 +74,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for requireActivity() fragment
 
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+
+
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())

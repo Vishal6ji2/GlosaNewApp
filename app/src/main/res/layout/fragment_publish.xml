@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.fragments.pubFragment"
-        android:background="@drawable/nearbycabs">
+        android:background="@drawable/map">
 
         <ImageView
             android:id="@+id/pubfrag_mapimg"
@@ -29,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#1E000000">
-
 
             <ImageView
                 android:id="@+id/homefrag_logo"

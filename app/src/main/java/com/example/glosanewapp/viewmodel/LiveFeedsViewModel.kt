@@ -3,7 +3,6 @@ package com.example.glosanewapp.viewmodel
 import androidx.lifecycle.ViewModel
 
 class LiveFeedsViewModel : ViewModel() {
-    var person: String? = null
     var id: Int? = null
     var distance: Int = 0
     var type: String? = null
