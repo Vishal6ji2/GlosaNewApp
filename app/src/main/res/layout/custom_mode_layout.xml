@@ -10,8 +10,8 @@
         <variable
             name="travelmode"
             type="com.example.glosanewapp.network.model.TravelMode" />
-    </data>
 
+    </data>
 
     <RelativeLayout
         android:id="@+id/custom_mode_layout"
@@ -26,9 +26,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_20sdp"
             android:visibility="visible"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="@dimen/_7sdp"
-            app:cardElevation="@dimen/_7sdp">
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_5sdp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
