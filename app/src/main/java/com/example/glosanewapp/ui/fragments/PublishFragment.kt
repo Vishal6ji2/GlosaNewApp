@@ -39,6 +39,7 @@ import com.example.glosanewapp.network.model.TravelMode
 import com.example.glosanewapp.services.LatLngService
 import com.example.glosanewapp.ui.SnapHelperOneByOne
 import com.example.glosanewapp.ui.adapters.TravelModeAdapter
+import com.example.glosanewapp.ui.uihelper.ArcOldLayoutManager
 import com.example.glosanewapp.ui.uihelper.CircleScaleLayoutManager
 import com.example.glosanewapp.util.*
 import com.example.glosanewapp.util.JERDecoderUtils.BSMResponse
@@ -381,7 +382,7 @@ class PublishFragment : Fragment() {
 
         val layoutManager= CircleScaleLayoutManager(requireContext())
         layoutManager.radius = 900
-        layoutManager.angleInterval = 55
+        layoutManager.angleInterval = 40
         recyclerView.layoutManager = layoutManager
         // recyclerView.layoutManager = ScaleLayoutManager(requireContext(),10)
         // recyclerView.layoutManager = ArcLayoutManager(requireContext(),200)

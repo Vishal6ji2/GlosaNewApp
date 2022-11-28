@@ -250,7 +250,7 @@ public class CircleScaleLayoutManager extends ViewPagerLayoutManager {
                         scale = (centerScale - 1f) / -angleInterval * diff + centerScale;
                     }
                 } else {
-                    itemView.setRotation(targetOffset);
+                    itemView.setRotation(targetOffset/2);
                     if (targetOffset < angleInterval && targetOffset > -angleInterval) {
                         float diff = Math.abs(Math.abs(itemView.getRotation() - angleInterval) - angleInterval);
                         scale = (centerScale - 1f) / -angleInterval * diff + centerScale;

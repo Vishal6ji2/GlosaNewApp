@@ -21,13 +21,14 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_140sdp"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_20sdp"
             android:visibility="visible"
+            app:cardUseCompatPadding="true"
             app:cardCornerRadius="@dimen/_5sdp"
-            app:cardElevation="@dimen/_5sdp">
+            app:cardElevation="8dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -70,8 +71,8 @@
 
         <ImageView
             android:id="@+id/custom_mode_modeimg"
-            android:layout_width="@dimen/_115sdp"
-            android:layout_height="@dimen/_120sdp"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_115sdp"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
             android:elevation="@dimen/_7sdp"
