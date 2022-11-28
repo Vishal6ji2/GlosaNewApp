@@ -14,8 +14,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.pubFragment"
-        android:background="@drawable/map">
+        android:background="@drawable/map"
+        tools:context=".ui.fragments.pubFragment">
 
         <ImageView
             android:id="@+id/pubfrag_mapimg"
@@ -62,19 +62,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/pubfrag_mapimg"
-            android:layout_marginStart="@dimen/_50sdp"
-            android:layout_marginEnd="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_56sdp"
+            android:layout_marginEnd="@dimen/_56sdp"
             android:background="@drawable/custom_topcornerlayout"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_2sdp"
                 android:gravity="center"
+                android:padding="@dimen/_2sdp"
                 android:text="Your Selected Mode"
-                android:textSize="@dimen/_10ssp"
                 android:textColor="@color/black"
+                android:textSize="@dimen/_8ssp"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -82,10 +82,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="@dimen/_2sdp"
+                android:paddingTop="@dimen/_2sdp"
                 android:text="Pedestrian"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
@@ -128,10 +128,10 @@ New Jersey, 07662
                 android:fontFamily="@font/interregular"
                 android:includeFontPadding="false"
                 android:padding="@dimen/_10sdp"
-                android:theme="@style/SCBSwitch"
                 android:text="Do you want to share your current/last location with others?"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13ssp"
+                android:theme="@style/SCBSwitch"
                 tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -146,10 +146,10 @@ New Jersey, 07662
                 android:fontFamily="@font/interregular"
                 android:includeFontPadding="false"
                 android:padding="@dimen/_10sdp"
-                android:theme="@style/SCBSwitch"
                 android:text="Do you want to Broadcast alerts on your phone?"
                 android:textColor="#808080"
                 android:textSize="@dimen/_13ssp"
+                android:theme="@style/SCBSwitch"
                 tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
         </LinearLayout>
