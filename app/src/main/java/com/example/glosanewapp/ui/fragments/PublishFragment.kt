@@ -384,9 +384,6 @@ class PublishFragment : Fragment() {
         layoutManager.radius = 900
         layoutManager.angleInterval = 40
         recyclerView.layoutManager = layoutManager
-        // recyclerView.layoutManager = ScaleLayoutManager(requireContext(),10)
-        // recyclerView.layoutManager = ArcLayoutManager(requireContext(),200)
-        //recyclerView.itemAnimator = DefaultItemAnimator()
 
 
         //init the Custom adapter
